@@ -20,7 +20,7 @@ const Markerwhatever = ({ customIcon, position, setPosition }) => {
             }, 5000);
             return () => clearTimeout(timer);
         });
-    }, [position]);
+    }, []);
 
     return (
         <Marker

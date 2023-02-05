@@ -1,6 +1,7 @@
 import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
+import markerIcon from "./marker-icon-2x.png";
 
 const createRoutineMachineLayer = (props) => {
     const instance = L.Routing.control({
@@ -9,7 +10,7 @@ const createRoutineMachineLayer = (props) => {
             L.latLng(33.50546582848033, 36.29547681726967),
         ],
         lineOptions: {
-            styles: [{ color: "#6FA1EC", weight: 4 }],
+            styles: [{ color: "#0060c0", weight: 4 }],
         },
         show: false,
         addWaypoints: false,

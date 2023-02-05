@@ -38,7 +38,7 @@ import "leaflet/dist/leaflet.css";
 import "./Maps.css";
 import bharatAvatar from "./bharat.png";
 import Markerwhatever from "./Markerwhatever";
-import RoutineMachine from "./RoutineMachine";
+import RoutingMachine from "./RoutingMachine";
 
 const Maps = (props) => {
     const { selectPosition } = props;
@@ -56,6 +56,10 @@ const Maps = (props) => {
     const [position, setPosition] = useState([27.7172, 85.324]);
     const [bbox, setBbox] = useState([]);
 
+    const findPath = true;
+    const [start, setStart] = useState([51.505, -0.09]);
+    const [end, setEnd] = useState([51.5, -0.1]);
+
     return (
         <section className="map-component">
             {/* --- (5) Add leaflet map container --- */}
@@ -65,14 +69,17 @@ const Maps = (props) => {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {
-                       
+                    {findPath ? (
+                        <>
+                            <RoutingMachine start={start} end={end} />
+                        </>
+                    ) : (
                         <Markerwhatever
                             position={position}
                             customIcon={customIcon}
                             setPosition={setPosition}
                         />
-                    }
+                    )}
                 </MapContainer>
                 {/* --- ---------------------------- --- */}
             </div>

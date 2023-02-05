@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+.leaflet-container {
+  height: 400px;
+  width: 100%;
+}
+.leaflet-bar{
+  display: none
+}
+
+.leaflet-marker-icon img{
+display: none;}
+
+.leaflet-marker-pane img{
+  content: url("marker-icon-2x.png");
+  height:10px;
+  width: 10px;
+}
+  
