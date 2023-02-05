@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SearchBox from "./SearchBox";
+
 import Maps from "./Maps";
 
 const MapsApp = () => {
