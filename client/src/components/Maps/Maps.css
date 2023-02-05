@@ -1,0 +1,8 @@
+.leaflet-container {
+    width: 100vw;
+    height:90vh;
+  }
+
+  .leaflet-marker-icon{
+border-radius: 50%;
+  }
