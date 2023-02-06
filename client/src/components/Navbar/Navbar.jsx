@@ -2,11 +2,12 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-
 import MapIcon from "@mui/icons-material/Map";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import { useNavigate } from "react-router-dom";
 export default function Navbar() {
     const [value, setValue] = React.useState(0);
+    const navigate = useNavigate();
 
     return (
         <Box
@@ -25,10 +26,19 @@ export default function Navbar() {
                     setValue(newValue);
                 }}
             >
-                <BottomNavigationAction label="Map" icon={<MapIcon />} />
+                <BottomNavigationAction
+                    label="Map"
+                    icon={<MapIcon />}
+                    onClick={() => {
+                        navigate("/map");
+                    }}
+                />
                 <BottomNavigationAction
                     label="Circles"
                     icon={<SupervisedUserCircleIcon />}
+                    onClick={() => {
+                        navigate("/circle");
+                    }}
                 />
             </BottomNavigation>
         </Box>

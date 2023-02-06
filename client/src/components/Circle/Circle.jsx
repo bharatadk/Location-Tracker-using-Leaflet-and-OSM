@@ -1,18 +1,22 @@
+import Navbar from "../Navbar/Navbar";
+import Markerwhatever from "../Maps/Markerwhatever";
+
+import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import React, { useEffect, useState } from "react";
 
 import "leaflet/dist/leaflet.css";
-import "./Maps.css";
-import RoutingMachine from "./RoutingMachine";
 
-const Maps = ({ start, end }) => {
-    const locationSelection = [start, end];
+const Circle = () => {
+  
+
+    const [currentPosition, setCurrentPosition] = useState([27.7172, 85.324]);
+    const [bbox, setBbox] = useState([]);
 
     return (
         <section className="map-component">
-            <div className="map bharat">
+            <div className="map">
                 <MapContainer
-                    center={[17.5, 72.08]}
+                    center={currentPosition}
                     zoom={6}
                     scrollWheelZoom={true}
                 >
@@ -20,16 +24,19 @@ const Maps = ({ start, end }) => {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    {start[0] && (
+                    {
                         <>
-                            <RoutingMachine start={start} end={end} />
+                            <Markerwhatever
+                                currentPosition={currentPosition}
+                                setCurrentPosition={setCurrentPosition}
+                            />
                         </>
-                    )}
+                    }
                 </MapContainer>
                 {/* --- ---------------------------- --- */}
             </div>
+            <Navbar />
         </section>
     );
 };
-
-export default Maps;
+export default Circle;

@@ -13,22 +13,34 @@ app.use(cors());
 
 let users = [];
 
-const addUser = (userId, socketId) => {
-    !users.some((user) => user.userId === userId) &&
-        users.push({ userId, socketId });
+const addUser = (userObj, socketId) => {
+    console.log(users);
+
+    !users.some((user) => user.userObj.username === userObj.username) &&
+        users.push({ userObj, socketId });
+};
+
+const removeUser = (socketId) => {
+    users = users.filter((user) => user.socketId !== socketId);
+};
+
+const updateUser = (userObj) => {
+    users.forEach((user) => {
+        console.log("updaign", user);
+    });
 };
 
 io.on("connection", (socket) => {
     // add userId and socketId from user
-    socket.on("addUser", (userId) => {
-        console.log("bbbbbbbbbb", userId);
-        addUser(userId, socket.id);
+    socket.on("addUser", (userObj) => {
+        console.log("conected", userObj);
+        addUser(userObj, socket.id);
+        io.emit("getUsers", users);
     });
 
     // send and post message
-    socket.on("sendMessage", ({ senderId, otherUserId, text }) => {
-        const user = getUserById(otherUserId);
-        console.log(senderId, otherUserId, text);
+    socket.on("sendMessage", (senderObj) => {
+        updateUser(senderObj);
         io.to(user.socketId).emit("getMessage", {
             senderId,
             text,

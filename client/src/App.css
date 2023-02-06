@@ -47,7 +47,7 @@
 .leaflet-marker-icon img{
 display: none;}
 
-.leaflet-marker-pane img{
+.bharat .leaflet-marker-pane img{
   content: url("marker-icon-2x.png");
   height:10px;
   width: 10px;

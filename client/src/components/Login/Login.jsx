@@ -13,6 +13,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import GeolocationJS from "../Maps/GeoLocationJS";
+
+import useGeolocation from "react-hook-geolocation";
 
 function Copyright(props) {
     return (
@@ -29,9 +33,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 const Login = () => {
+    const geolocation = useGeolocation();
+
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        const { latitude, longitude } = geolocation;
+        console.log(latitude, longitude, "---");
+        localStorage.setItem("username", event.target.elements.username.value);
+        localStorage.setItem("coordinates", [latitude, longitude]);
+
+        navigate("/circle");
     };
 
     return (
@@ -53,7 +66,7 @@ const Login = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        height: "25rem",
+                        height: "20rem",
                         borderRadius: "20px",
                     }}
                 >
@@ -81,19 +94,6 @@ const Login = () => {
                             autoFocus
                         />
 
-                        <TextField
-                            className="inputRounded"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Enter Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            style={{ borderRadius: "10px" }}
-                        />
-
                         <Button
                             className="btn"
                             type="submit"
@@ -101,7 +101,7 @@ const Login = () => {
                             variant="contained"
                             sx={{
                                 mt: 3,
-                                mb: 2,
+                                mb: 0,
                                 borderRadius: "10px",
                                 ":hover": {
                                     color: "white",
