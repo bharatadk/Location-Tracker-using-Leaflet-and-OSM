@@ -7,6 +7,10 @@ import bharatAvatar from "./bharat.png";
 import { Icon } from "leaflet";
 import GeolocationJS from "../Maps/GeoLocationJS";
 import { io } from "socket.io-client";
+import useInterval from "use-interval";
+import axios from "axios";
+import useGeolocation from "react-hook-geolocation";
+
 const serverUrl = "http://localhost:3000";
 
 const customIcon = new Icon({
@@ -16,6 +20,8 @@ const customIcon = new Icon({
     popupAnchor: [-0, -16],
 });
 function LocationMarkers() {
+    const geolocation = useGeolocation();
+
     const initialMarkers = [
         [28, 84],
         [17, 72],
@@ -30,38 +36,29 @@ function LocationMarkers() {
     //     },
     // });
 
-    const socket = useRef();
-
-    // useEffect(() => {
-    //     let timer1 = setTimeout(() => {
-    //         socket.current = io("ws://localhost:8080");
-
-    //         socket.current.on("getUsers", (data) => {
-    //             let arr = [];
-    //             console.log(data);
-    //             if (data.length > 0) {
-    //                 data.forEach((user) => {
-    //                     arr.push([user.userObj.coordinates]);
-    //                 });
-    //             }
-
-    //             setMarkers(arr);
-    //         });
-    //     }, 3000);
-
-    //     return () => {
-    //         clearTimeout(timer1);
-    //     };
-    // }, []);
-
     useEffect(() => {
-        socket.current = io("ws://localhost:8080");
-        const user = {
-            username: localStorage.getItem("username"),
-            coordinates: localStorage.getItem("coordinates"),
-        };
-        socket.current.emit("addUser", user);
-    });
+        const interval = setInterval(async () => {
+            const { latitude, longitude } = geolocation;
+            // await localStorage.removeItem("coordinates");
+            await localStorage.setItem("coordinates", [latitude, longitude]);
+            const corrToSend = localStorage.getItem("coordinates");
+
+            const newMarkers = await axios.post(
+                "http://localhost:8080/updateLocation",
+                {
+                    coordinates: corrToSend,
+                    username: localStorage.getItem("username"),
+                }
+            );
+            console.log("geo", navigator.geolocation.getCurrentPosition);
+            console.log(localStorage.getItem("coordinates"));
+            console.log(markers);
+
+            setMarkers(newMarkers.data.markers);
+        }, 5000);
+        //Clearing the interval
+        return () => clearInterval(interval);
+    }, [markers]);
 
     return (
         <React.Fragment>

@@ -112,6 +112,14 @@ const Login = () => {
                         </Button>
                     </Box>
                 </Box>
+
+                <Button
+                    variant="outlined"
+                    style={{ marginBottom: "10px" }}
+                    onClick={() => navigate("/github")}
+                >
+                    View GitHub of Bharat
+                </Button>
                 <Copyright sx={{ mb: 4 }} />
             </Container>
         </ThemeProvider>
