@@ -41,31 +41,6 @@ const updateUser = (userObj) => {
     });
 };
 
-// io.on("connection", (socket) => {
-//     // add userId and socketId from user
-//     socket.on("addUser", (userObj) => {
-//         console.log("conected", userObj);
-//         addUser(userObj, socket.id);
-//         io.emit("getUsers", users);
-//     });
-
-//     // send and post message
-//     socket.on("sendMessage", (senderObj) => {
-//         updateUser(senderObj);
-//         io.to(user.socketId).emit("getMessage", {
-//             senderId,
-//             text,
-//         });
-//     });
-
-//     //when someone disconnects
-//     socket.on("disconnect", () => {
-//         console.log("a user disconnected!");
-//         removeUser(socket.id);
-//         io.emit("getUsers", users);
-//     });
-// });
-
 app.get("/", (req, res) => {
     res.json("api running");
 });
