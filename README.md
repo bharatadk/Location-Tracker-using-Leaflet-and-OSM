@@ -1,4 +1,3 @@
-# Location-Tracker-using-Leaflet-and-OSM
 
 # Realtime Location Tracker
 ![screenshot](https://user-images.githubusercontent.com/51126350/216897341-9baf3cd2-4bfe-48a7-983e-05caee2762bf.png)
